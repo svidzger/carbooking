@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <title>Car booking - carlist</title>
+  </head>
+  <body>
+    <div class="container text-center">
+      <h1>Cars</h1>
+      <table class="table table-bordered table-hover">
+        <tr class="table-secondary">
+          <th>Brand</th>
+          <th>Model</th>
+          <th>Year</th>
+          <th>Price</th>
+        </tr>
+        <tr th:each="car : ${cars}">
+          <td th:text="${car.brand}"></td>
+          <td th:text="${car.model}"></td>
+          <td th:text="${car.year}"></td>
+          <td th:text="${car.price}"></td>
+          <td>
+            <a
+              th:href="@{/addbooking/{id}(id=${car.carId})}"
+              class="btn btn-success"
+            >Booking</a>
+          </td>
+          <td>
+            <a
+              th:href="@{/editcar/{id}(id=${car.carId})}"
+              class="btn btn-primary"
+              >Edit</a
+            >
+          </td>
+          <td>
+            <a
+              th:href="@{/deletecar/{id}(id=${car.carId})}"
+              class="btn btn-danger"
+            >
+              Delete
+            </a>
+          </td>
+        </tr>
+      </table>
+      <a href="/addcar" class="btn btn-success">Add car</a>
+    </div>
+  </body>
+</html>

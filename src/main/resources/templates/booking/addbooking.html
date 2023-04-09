@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Car booking - addbooking</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+  </head>
+  <body>
+    <div class="row">
+      <div class="mx-auto col-10 col-md-8 col-lg-6">
+        <h1></h1>
+        <div>
+          <h3><b th:text="${car.brand}"></b> <b th:text="${car.model}"></b></h3>
+          <p th:text="${car.price}">€/day</p>
+          <p>Car is booked for:</p>
+          <table>
+            <tr>
+              <th>Start Date</th>
+              <th>End Date</th>
+            </tr>
+            <tr th:each="booking : ${car.bookings}">
+              <td th:text="${booking.startDate}"></td>
+              <td th:text="${booking.endDate}"></td>
+            </tr>
+          </table>
+        </div>
+        <br />
+        <form
+          th:object="${booking}"
+          th:action="@{/savebooking}"
+          action="#"
+          method="post"
+        >
+          <div class="form-group">
+            <input type="hidden" th:field="*{car}" th:value="*{car}" />
+            <label for="startDate">Start date</label>
+            <input
+              class="form-control"
+              type="date"
+              id="startDate"
+              th:field="*{startDate}"
+            />
+            <br />
+            <label for="endDate">End date</label>
+            <input
+              class="form-control"
+              type="date"
+              id="endDate"
+              th:field="*{endDate}"
+            />
+            <br />
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a href="/carlist" class="btn btn-outline-secondary">Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

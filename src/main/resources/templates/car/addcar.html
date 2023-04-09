@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      type="text/css"
+      rel="stylesheet"
+      href="/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"
+    />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <title>Car booking - addcar</title>
+  </head>
+  <body>
+    <div class="row">
+      <div class="mx-auto col-10 col-md-8 col-lg-6">
+        <h1>Add car</h1>
+        <form
+          th:object="${car}"
+          th:action="@{/savecar}"
+          action="#"
+          method="post"
+        >
+          <div class="form-group">
+            <label for="brand">Brand</label>
+            <input
+              class="form-control"
+              type="text"
+              id="brand"
+              th:field="*{brand}"
+            />
+            <br>
+            <label for="model">Model</label>
+            <input
+              class="form-control"
+              type="text"
+              id="model"
+              th:field="*{model}"
+            />
+            <br>
+            <label for="year">Year</label>
+            <input
+              class="form-control"
+              type="text"
+              id="year"
+              th:field="*{year}"
+            />
+            <br>
+            <label for="price">Price</label>
+            <input
+              class="form-control"
+              type="text"
+              id="price"
+              th:field="*{price}"
+            />
+            <br>
+            <input class="btn btn-primary" type="submit" value="Save" />
+            <a href="/carlist" class="btn btn-danger">Back</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
