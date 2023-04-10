@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Bean;
 
 import hh.backend.carbooking.domain.Car;
 import hh.backend.carbooking.domain.CarRepository;
+import hh.backend.carbooking.domain.User;
+import hh.backend.carbooking.domain.UserRepository;
 
 @SpringBootApplication
 public class CarbookingApplication {
@@ -21,7 +23,7 @@ public class CarbookingApplication {
 	}
 
 	@Bean
-	public CommandLineRunner carbookingDemo(CarRepository cRepository) {
+	public CommandLineRunner carbookingDemo(CarRepository cRepository, UserRepository uRepository) {
 		return (args) -> {
 
 			log.info("saving test cars");
@@ -37,6 +39,19 @@ public class CarbookingApplication {
 			for (Car car : cRepository.findAll()) {
 				log.info(car.toString());
 			}
+
+			// Create test users
+			User user1 = new User("user", "$2a$10$9GVY78j6TXCbePZtjLPVQOopBLQw1z4Isr4RR01IDbnxDJWknZV4C","user@email.com", "USER");
+			User user2 = new User("admin", "$2a$10$zRHb1X18PiVGVne6ZKaD5Oqu3n7AWka43bMvYXAUom84jrayRE0dO","admin@email.com", "ADMIN");
+
+			uRepository.save(user1);
+			uRepository.save(user2);
+
+			log.info("test users added");
+			for (User user: uRepository.findAll()) {
+				log.info(user.toString());
+			}
+
 		};
 	}
 }

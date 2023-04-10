@@ -31,7 +31,8 @@
             <a
               th:href="@{/addbooking/{id}(id=${car.carId})}"
               class="btn btn-success"
-            >Booking</a>
+              >Booking</a
+            >
           </td>
           <td>
             <a
@@ -51,6 +52,9 @@
         </tr>
       </table>
       <a href="/addcar" class="btn btn-success">Add car</a>
+      <form class="form-inline" th:action="@{/logout}" method="post">
+        <button class="btn btn-outline-primary my-2 my-sm-0">Sign out</button>
+      </form>
     </div>
   </body>
 </html>
