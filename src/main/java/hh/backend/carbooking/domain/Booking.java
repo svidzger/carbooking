@@ -2,6 +2,8 @@ package hh.backend.carbooking.domain;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Basic;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class Booking {
     private java.sql.Date endDate;
     private Double bookingPrice;
 
+    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "carId")
     private Car car;

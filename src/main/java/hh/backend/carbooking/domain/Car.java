@@ -2,6 +2,8 @@ package hh.backend.carbooking.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,6 +24,7 @@ public class Car {
     private Integer year;
     private Double price;
 
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", fetch = FetchType.EAGER)
     private List<Booking> bookings;
 
