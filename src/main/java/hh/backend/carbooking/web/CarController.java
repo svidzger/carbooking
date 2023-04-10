@@ -1,6 +1,7 @@
 package hh.backend.carbooking.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,9 @@ public class CarController {
         return "car/carlist"; // carlist.html
     }
 
+
+    // Add a new car
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/addcar")
     public String addCar(Model model) {
         model.addAttribute("car", new Car());
@@ -34,6 +38,7 @@ public class CarController {
     }
 
     // Save a car
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/savecar")
     public String saveCar(Car car) {
         cRepository.save(car);
@@ -41,6 +46,7 @@ public class CarController {
     }
 
     // Edit one car by id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/editcar/{id}")
     public String editCar(@PathVariable("id") Long carId, Model model) {
         model.addAttribute("car", cRepository.findById(carId));
@@ -48,6 +54,7 @@ public class CarController {
     }
 
     // Delete one car by id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/deletecar/{id}")
     public String deleteCar(@PathVariable("id") Long carId) {
         cRepository.deleteById(carId);
