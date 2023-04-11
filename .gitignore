@@ -32,6 +32,9 @@ build/
 ### VS Code ###
 .vscode/
 
+### MacBook ###
+.DS_Store
+
 # Created by https://www.toptal.com/developers/gitignore/api/java,visualstudiocode,maven
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,visualstudiocode,maven
 
