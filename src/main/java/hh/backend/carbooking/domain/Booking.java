@@ -29,15 +29,21 @@ public class Booking {
     @JoinColumn(name = "carId")
     private Car car;
 
+    @JsonBackReference
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private User user;
+
     public Booking() {
 
     }
 
-    public Booking(Date startDate, Date endDate, Double bookingPrice, Car car) {
+    public Booking(Date startDate, Date endDate, Double bookingPrice, Car car, User user) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.bookingPrice = bookingPrice;
         this.car = car;
+        this.user = user;
     }
 
     public Long getBookingId() {
@@ -78,6 +84,14 @@ public class Booking {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override
