@@ -11,54 +11,53 @@
       th:href="@{/css/bootstrap.min.css}"
     />
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
-    <title>Car booking - edit car</title>
+    <title>Car booking - add user</title>
   </head>
   <body>
     <div class="row">
       <div class="mx-auto col-10 col-md-8 col-lg-6">
-        <h1>Edit car</h1>
+        <h1>Add user</h1>
         <form
-          th:object="${car}"
-          th:action="@{/savecar}"
+          th:object="${user}"
+          th:action="@{/saveuser}"
           action="#"
           method="post"
         >
           <div class="form-group">
-            <input type="hidden" th:field="*{carId}" />
-            <label for="brand">Brand</label>
+            <label for="username">Username</label>
             <input
               class="form-control"
               type="text"
-              id="brand"
-              th:field="*{brand}"
+              id="username"
+              th:field="*{username}"
             />
-            <br>
-            <label for="model">Model</label>
+            <br />
+            <label for="email">Email</label>
+            <input
+              class="form-control"
+              type="email"
+              id="email"
+              th:field="*{email}"
+            />
+            <br />
+            <label for="password">Password</label>
+            <input
+              class="form-control"
+              type="password"
+              id="password"
+              th:field="*{passwordHash}"
+            />
+            <br />
+            <label for="role">Role</label>
             <input
               class="form-control"
               type="text"
-              id="model"
-              th:field="*{model}"
+              id="role"
+              th:field="*{role}"
             />
-            <br>
-            <label for="year">Year</label>
-            <input
-              class="form-control"
-              type="text"
-              id="year"
-              th:field="*{year}"
-            />
-            <br>
-            <label for="price">Price</label>
-            <input
-              class="form-control"
-              type="text"
-              id="price"
-              th:field="*{price}"
-            />
-            <br>
+            <br />
             <input class="btn btn-primary" type="submit" value="Save" />
-            <a href="/carlist" class="btn btn-danger">Back</a>
+            <a href="/userlist" class="btn btn-danger">Back</a>
           </div>
         </form>
       </div>

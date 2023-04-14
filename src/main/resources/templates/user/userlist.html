@@ -14,41 +14,32 @@
       href="/css/bootstrap.min.css"
       th:href="@{/css/bootstrap.min.css}"
     />
-    <title>Car booking - carlist</title>
+    <title>Car booking - user list</title>
   </head>
   <body>
     <div class="container text-center">
-      <h1>Cars</h1>
+      <h1>Users</h1>
       <h3 sec:authentication="name">Bob</h3>
       <table class="table table-bordered table-hover">
         <tr class="table-secondary">
-          <th>Brand</th>
-          <th>Model</th>
-          <th>Year</th>
-          <th>Price</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Role</th>
         </tr>
-        <tr th:each="car : ${cars}">
-          <td th:text="${car.brand}"></td>
-          <td th:text="${car.model}"></td>
-          <td th:text="${car.year}"></td>
-          <td th:text="${car.price}"></td>
-          <td>
-            <a
-              th:href="@{/addbooking/{id}(id=${car.carId})}"
-              class="btn btn-success"
-              >Booking</a
-            >
-          </td>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.email}"></td>
+          <td th:text="${user.role}"></td>
           <td sec:authorize="hasAuthority('ADMIN')">
             <a
-              th:href="@{/editcar/{id}(id=${car.carId})}"
+              th:href="@{/edituser/{id}(id=${user.id})}"
               class="btn btn-primary"
               >Edit</a
             >
           </td>
           <td sec:authorize="hasAuthority('ADMIN')">
             <a
-              th:href="@{/deletecar/{id}(id=${car.carId})}"
+              th:href="@{/deleteuser/{id}(id=${user.id})}"
               class="btn btn-danger"
             >
               Delete
@@ -58,15 +49,15 @@
       </table>
       <a
         sec:authorize="hasAuthority('ADMIN')"
-        href="/addcar"
+        href="/adduser"
         class="btn btn-success"
-        >Add car</a
+        >Add user</a
       >
       <a
         sec:authorize="hasAuthority('ADMIN')"
-        href="/userlist"
+        href="/carlist"
         class="btn btn-primary"
-        >Users</a
+        >Cars</a
       >
       <form class="form-inline" th:action="@{/login}">
         <button class="btn btn-success my-2 my-sm-0">Sign in</button>
