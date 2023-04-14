@@ -2,6 +2,7 @@ package hh.backend.carbooking.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +22,20 @@ public class UserController {
     @Autowired
     UserRepository uRepository;
 
+    // User list
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/userlist")
     public String userList(Model model) {
         model.addAttribute("users", uRepository.findAll());
         return "user/userlist";
+    }
+
+    // User page
+    @GetMapping("/userprofile/{id}")
+    public String userProfile(@PathVariable("id") Long id, Authentication authentication, Model model) {
+        model.addAttribute("user", uRepository.findById(id));
+        model.addAttribute("currusername", authentication.getName());
+        return "user/user";
     }
 
     // Add a new user
@@ -44,6 +54,23 @@ public class UserController {
         user.setPasswordHash(passwordEncoder.encode(pswrd));
         uRepository.save(user);
         return "redirect:/userlist"; // userlist.html
+    }
+
+    // New user registration
+    @GetMapping("/register")
+    public String newUser(Model model) {
+        model.addAttribute("user", new User());
+        return "user/register"; // register.html
+    }
+
+    // Register new user
+    @PostMapping("/registeruser")
+    public String registerUser(User user) {
+        String pswrd = user.getPasswordHash();
+        user.setPasswordHash(passwordEncoder.encode(pswrd));
+        user.setRole("USER");
+        uRepository.save(user);
+        return "redirect:/carlist";
     }
 
     // Edit one user by id

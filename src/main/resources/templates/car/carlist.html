@@ -20,8 +20,8 @@
     <div class="container text-center">
       <h1>Cars</h1>
       <h3 sec:authentication="name">Bob</h3>
-      <table class="table table-bordered table-hover">
-        <tr class="table-secondary">
+      <table class="table table-borderless">
+        <tr>
           <th>Brand</th>
           <th>Model</th>
           <th>Year</th>
@@ -56,6 +56,12 @@
           </td>
         </tr>
       </table>
+      <a href="/register" class="btn btn-success">register</a>
+      <div th:object="${user}">
+        <a th:href="@{/userprofile/{id}(id=${user.id})}" class="btn btn-primary"
+          >Profile</a
+        >
+      </div>
       <a
         sec:authorize="hasAuthority('ADMIN')"
         href="/addcar"

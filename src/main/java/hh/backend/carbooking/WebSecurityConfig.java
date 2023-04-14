@@ -31,7 +31,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests()
                 .requestMatchers(toH2Console()).permitAll()
-                .requestMatchers("/carlist", "/css/**").permitAll()
+                .requestMatchers("/register", "/registeruser", "/carlist", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .csrf().ignoringRequestMatchers(toH2Console())

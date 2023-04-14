@@ -2,6 +2,9 @@ package hh.backend.carbooking.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import hh.backend.carbooking.domain.BookingRepository;
 import hh.backend.carbooking.domain.Car;
 import hh.backend.carbooking.domain.CarRepository;
+import hh.backend.carbooking.domain.UserRepository;
 
 @Controller
 public class CarController {
@@ -19,15 +23,25 @@ public class CarController {
     CarRepository cRepository;
     @Autowired
     BookingRepository bRepository;
+    @Autowired
+    UserRepository uRepository;
 
+    private String currentUserName() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            String currentUserName = authentication.getName();
+            return currentUserName;
+        }
+        return null;
+    }
 
     // List of all cars
     @GetMapping("/carlist")
     public String carList(Model model) {
+        model.addAttribute("user", uRepository.findByUsername(currentUserName()));
         model.addAttribute("cars", cRepository.findAll());
         return "car/carlist"; // carlist.html
     }
-
 
     // Add a new car
     @PreAuthorize("hasAuthority('ADMIN')")

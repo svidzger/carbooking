@@ -14,43 +14,13 @@
       href="/css/bootstrap.min.css"
       th:href="@{/css/bootstrap.min.css}"
     />
-    <title>Car booking - user list</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <title>Car booking - user</title>
   </head>
   <body>
     <div class="container text-center">
-      <h1>Users</h1>
-      <h3 sec:authentication="name">Bob</h3>
-      <table class="table table-bordered table-hover">
-        <tr class="table-secondary">
-          <th>Username</th>
-          <th>Email</th>
-          <th>Role</th>
-        </tr>
-        <tr th:each="user : ${users}">
-          <td>
-            <a th:href="@{/userprofile/{id}(id=${user.id})}" class="text"
-              ><p th:text="${user.username}"></p
-            ></a>
-          </td>
-          <td th:text="${user.email}"></td>
-          <td th:text="${user.role}"></td>
-          <td sec:authorize="hasAuthority('ADMIN')">
-            <a
-              th:href="@{/edituser/{id}(id=${user.id})}"
-              class="btn btn-primary"
-              >Edit</a
-            >
-          </td>
-          <td sec:authorize="hasAuthority('ADMIN')">
-            <a
-              th:href="@{/deleteuser/{id}(id=${user.id})}"
-              class="btn btn-danger"
-            >
-              Delete
-            </a>
-          </td>
-        </tr>
-      </table>
+      <h1 th:text="${currusername}"></h1>
+      <p th:text="${role}"></p>
       <a
         sec:authorize="hasAuthority('ADMIN')"
         href="/adduser"
