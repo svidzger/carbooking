@@ -38,6 +38,7 @@ public class BookingController {
     @GetMapping("/addbooking/{id}")
     public String addBooking(@PathVariable("id") Long carId, Model model) {
         Booking booking = new Booking();
+        System.out.println(currentUserName());
         booking.setCar(cRepository.findById(carId).get());
         booking.setUser(uRepository.findByUsername(currentUserName()));
         model.addAttribute("booking", booking);

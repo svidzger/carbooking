@@ -38,7 +38,7 @@ public class CarRestController {
 
     // New car
     @PostMapping("/cars")
-    Car replaceCar(@RequestBody Car newCar) {
+    Car newCar(@RequestBody Car newCar) {
         return cRepository.save(newCar);
     }
 
