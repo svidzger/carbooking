@@ -3,6 +3,8 @@
   lang="en"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{layout}"
 >
   <head>
     <meta charset="UTF-8" />
@@ -17,69 +19,62 @@
     <title>Car booking - carlist</title>
   </head>
   <body>
-    <div class="container text-center">
-      <h1>Cars</h1>
-      <h3 sec:authentication="name">Bob</h3>
-      <table class="table table-borderless">
-        <tr>
-          <th>Brand</th>
-          <th>Model</th>
-          <th>Year</th>
-          <th>Price</th>
-        </tr>
-        <tr th:each="car : ${cars}">
-          <td th:text="${car.brand}"></td>
-          <td th:text="${car.model}"></td>
-          <td th:text="${car.year}"></td>
-          <td th:text="${car.price}"></td>
-          <td>
-            <a
-              th:href="@{/addbooking/{id}(id=${car.carId})}"
-              class="btn btn-success"
-              >Booking</a
-            >
-          </td>
-          <td sec:authorize="hasAuthority('ADMIN')">
-            <a
-              th:href="@{/editcar/{id}(id=${car.carId})}"
-              class="btn btn-primary"
-              >Edit</a
-            >
-          </td>
-          <td sec:authorize="hasAuthority('ADMIN')">
-            <a
-              th:href="@{/deletecar/{id}(id=${car.carId})}"
-              class="btn btn-danger"
-            >
-              Delete
-            </a>
-          </td>
-        </tr>
-      </table>
-      <a href="/register" class="btn btn-success">register</a>
-      <div th:object="${user}">
-        <a th:href="@{/userprofile/{id}(id=${user.id})}" class="btn btn-primary"
-          >Profile</a
+    <section layout:fragment="content">
+      <div class="container text-center">
+        <h1>Cars</h1>
+        <table class="table table-borderless">
+          <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Year</th>
+            <th style="width: 1%"></th>
+            <th style="width: 1%"></th>
+            <th style="width: 1%"></th>
+            <!-- <th>Price</th> -->
+          </tr>
+          <tr th:each="car : ${cars}">
+            <td th:text="${car.brand}"></td>
+            <td th:text="${car.model}"></td>
+            <td th:text="${car.year}"></td>
+            <!-- <td th:text="${car.price}"></td> -->
+            <td>
+              <a
+                th:href="@{/addbooking/{id}(id=${car.carId})}"
+                class="btn btn-success"
+                >Booking</a
+              >
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/editcar/{id}(id=${car.carId})}"
+                class="btn btn-primary"
+                >Edit</a
+              >
+            </td>
+            <td sec:authorize="hasAuthority('ADMIN')">
+              <a
+                th:href="@{/deletecar/{id}(id=${car.carId})}"
+                class="btn btn-danger"
+              >
+                Delete
+              </a>
+            </td>
+          </tr>
+        </table>
+        <!-- <div th:object="${user}">
+          <a
+            th:href="@{/userprofile/{id}(id=${user.id})}"
+            class="btn btn-primary"
+            >Profile</a
+          >
+        </div> -->
+        <a
+          sec:authorize="hasAuthority('ADMIN')"
+          href="/addcar"
+          class="btn btn-success"
+          >Add car</a
         >
       </div>
-      <a
-        sec:authorize="hasAuthority('ADMIN')"
-        href="/addcar"
-        class="btn btn-success"
-        >Add car</a
-      >
-      <a
-        sec:authorize="hasAuthority('ADMIN')"
-        href="/userlist"
-        class="btn btn-primary"
-        >Users</a
-      >
-      <form class="form-inline" th:action="@{/login}">
-        <button class="btn btn-success my-2 my-sm-0">Sign in</button>
-      </form>
-      <form class="form-inline" th:action="@{/logout}" method="post">
-        <button class="btn btn-outline-primary my-2 my-sm-0">Sign out</button>
-      </form>
-    </div>
+    </section>
   </body>
 </html>

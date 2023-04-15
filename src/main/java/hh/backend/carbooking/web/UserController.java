@@ -32,9 +32,8 @@ public class UserController {
 
     // User page
     @GetMapping("/userprofile/{id}")
-    public String userProfile(@PathVariable("id") Long id, Authentication authentication, Model model) {
+    public String userProfile(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", uRepository.findById(id));
-        model.addAttribute("currusername", authentication.getName());
         return "user/user";
     }
 
@@ -87,5 +86,13 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Long id) {
         uRepository.deleteById(id);
         return "redirect:/userlist"; // userlist.html
+    }
+
+    // User data to layout
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/layout")
+    public String navBar(Authentication authentication, Model model) {
+        model.addAttribute("user", uRepository.findByUsername(authentication.getName()));
+        return "layout";
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import hh.backend.carbooking.web.UserDetailServiceImpl;
+import nz.net.ultraq.thymeleaf.layoutdialect.LayoutDialect;
 
 import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 
@@ -24,6 +25,11 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public LayoutDialect layoutDialect() {
+        return new LayoutDialect();
     }
 
     @Bean
@@ -44,9 +50,9 @@ public class WebSecurityConfig {
                 .and()
                 .logout()
                 .permitAll()
-                .logoutSuccessUrl("/carlist")
-                .and()
-                .httpBasic();
+                .logoutSuccessUrl("/carlist");
+        // .and()
+        // .httpBasic();
         return http.build();
     }
 
