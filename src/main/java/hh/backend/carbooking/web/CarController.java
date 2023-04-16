@@ -38,7 +38,7 @@ public class CarController {
     }
 
     // List of all cars
-    @GetMapping("/carlist")
+    @GetMapping({ "/carlist", "/" })
     public String carList(Model model) {
         model.addAttribute("user", uRepository.findByUsername(currentUserName()));
         model.addAttribute("cars", cRepository.findAll());

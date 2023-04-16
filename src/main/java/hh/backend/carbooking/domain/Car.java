@@ -35,7 +35,7 @@ public class Car {
     private Integer year;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car", fetch = FetchType.EAGER)
     private List<Booking> bookings;
 
     public Car() {
