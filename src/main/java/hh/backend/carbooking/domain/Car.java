@@ -44,7 +44,8 @@ public class Car {
 
     }
 
-    public Car(String brand, String model, Integer year, Double price) {
+    public Car(@NotEmpty(message = "Brand is required") String brand,
+            @NotEmpty(message = "Model is required") String model, @Min(1) Integer year, Double price) {
         this.brand = brand;
         this.model = model;
         this.year = year;
