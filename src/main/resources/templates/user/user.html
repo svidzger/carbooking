@@ -37,6 +37,7 @@
             <th>Car</th>
             <th>Start date</th>
             <th>End date</th>
+            <th>Booking ID</th>
           </tr>
           <tr th:each="booking : ${user.bookings}">
             <td
@@ -44,6 +45,14 @@
             ></td>
             <td th:text="${booking.startDate}"></td>
             <td th:text="${booking.endDate}"></td>
+            <td th:text="${booking.bookingId}"></td>
+            <td>
+              <a
+                th:href="@{/deletebooking/{id}(id=${booking.bookingId})}"
+                class="btn btn-danger"
+                >Delete</a
+              >
+            </td>
           </tr>
         </table>
       </div>

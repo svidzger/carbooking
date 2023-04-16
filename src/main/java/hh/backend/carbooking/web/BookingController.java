@@ -1,6 +1,7 @@
 package hh.backend.carbooking.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -38,7 +39,6 @@ public class BookingController {
     @GetMapping("/addbooking/{id}")
     public String addBooking(@PathVariable("id") Long carId, Model model) {
         Booking booking = new Booking();
-        System.out.println(currentUserName());
         booking.setCar(cRepository.findById(carId).get());
         booking.setUser(uRepository.findByUsername(currentUserName()));
         model.addAttribute("booking", booking);
@@ -50,7 +50,14 @@ public class BookingController {
     @PostMapping("/savebooking")
     public String saveBooking(Booking booking) {
         bRepository.save(booking);
-        return "redirect:/carlist"; // bookinglist.html
+        return "redirect:/userlist"; // bookinglist.html
     }
 
+    // Delete/Cancel one booking by id
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/deletebooking/{id}")
+    public String deleteBooking(@PathVariable("id") Long bookingId) {
+        bRepository.deleteById(bookingId);
+        return "redirect:/userlist"; // userlist.html
+    }
 }
