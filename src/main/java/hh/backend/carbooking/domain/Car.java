@@ -12,9 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Car {
@@ -23,18 +22,15 @@ public class Car {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long carId;
 
-    @Valid
-    @NotEmpty(message = "Brand cannot be null")
+    @NotEmpty(message = "Brand is required")
     @Column(name = "brand")
     private String brand;
 
-    @Valid
-    @NotEmpty(message = "Model cannot be null")
+    @NotEmpty(message = "Model is required")
     @Column(name = "model")
     private String model;
 
-    @Valid
-    @NotNull(message = "Year cannot be null")
+    @Min(value = 1)
     @Column(name = "production_year")
     private Integer year;
 

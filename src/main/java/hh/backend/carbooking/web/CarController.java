@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import hh.backend.carbooking.domain.BookingRepository;
 import hh.backend.carbooking.domain.Car;
 import hh.backend.carbooking.domain.CarRepository;
 import hh.backend.carbooking.domain.UserRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class CarController {
@@ -54,9 +56,25 @@ public class CarController {
     // Save a car
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/savecar")
-    public String saveCar(Car car) {
-        cRepository.save(car);
-        return "redirect:/carlist"; // carlist.html
+    public String saveCar(@Valid Car car, BindingResult result) {
+        if (result.hasErrors()) {
+            return "car/addcar";
+        } else {
+            cRepository.save(car);
+            return "redirect:/carlist"; // carlist.html
+        }
+    }
+
+    // Save a car
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/saveeditedcar")
+    public String saveEditedCar(@Valid Car car, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/editcar/" + car.getCarId();
+        } else {
+            cRepository.save(car);
+            return "redirect:/carlist"; // carlist.html
+        }
     }
 
     // Edit one car by id

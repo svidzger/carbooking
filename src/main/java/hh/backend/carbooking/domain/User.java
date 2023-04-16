@@ -12,9 +12,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity(name = "users")
@@ -24,24 +23,21 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Valid
     @Size(min = 4, max = 12, message = "Username must be between 4 and 12 characters")
-    @NotNull(message = "User cannot be null")
+    @NotEmpty(message = "Username is required")
     @Column(name = "username", unique = true)
     private String username;
 
-    @Valid
-    @NotNull(message = "Password cannot be null")
+    @NotEmpty(message = "Password is required")
     @Column(name = "password")
     private String passwordHash;
 
-    @Valid
     @Email(message = "Email should be valid")
+    @NotEmpty(message = "Email is required")
     @Column(name = "email", unique = true)
     private String email;
 
-    @Valid
-    @NotNull(message = "Role cannot be null")
+    @NotEmpty(message = "Role is required")
     @Column(name = "role")
     private String role;
 

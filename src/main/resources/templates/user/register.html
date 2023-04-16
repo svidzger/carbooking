@@ -35,6 +35,11 @@
               id="username"
               th:field="*{username}"
             />
+            <div
+              class="alert alert-warning"
+              th:if="${#fields.hasErrors('username')}"
+              th:errors="*{username}"
+            ></div>
             <br />
             <label for="email">Email</label>
             <input
@@ -43,6 +48,11 @@
               id="email"
               th:field="*{email}"
             />
+            <div
+              class="alert alert-warning"
+              th:if="${#fields.hasErrors('email')}"
+              th:errors="*{email}"
+            ></div>
             <br />
             <label for="password">Password</label>
             <input
@@ -51,9 +61,14 @@
               id="password"
               th:field="*{passwordHash}"
             />
+            <div
+              class="alert alert-warning"
+              th:if="${#fields.hasErrors('passwordHash')}"
+              th:errors="*{passwordHash}"
+            ></div>
             <br />
             <input class="btn btn-primary" type="submit" value="Save" />
-            <a href="/userlist" class="btn btn-danger">Back</a>
+            <a href="/carlist" class="btn btn-danger">Back</a>
           </div>
         </form>
       </div>

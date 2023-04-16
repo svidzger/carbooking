@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import hh.backend.carbooking.domain.Booking;
 import hh.backend.carbooking.domain.BookingRepository;
 import hh.backend.carbooking.domain.CarRepository;
 import hh.backend.carbooking.domain.UserRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class BookingController {
@@ -48,9 +50,14 @@ public class BookingController {
 
     // Save new booking
     @PostMapping("/savebooking")
-    public String saveBooking(Booking booking) {
-        bRepository.save(booking);
-        return "redirect:/userlist"; // bookinglist.html
+    public String saveBooking(@Valid Booking booking, BindingResult result) {
+        if (result.hasErrors()) {
+            return "redirect:/carlist";
+        } else {
+            bRepository.save(booking);
+            return "redirect:/carlist"; // carlist.html
+        }
+
     }
 
     // Delete/Cancel one booking by id

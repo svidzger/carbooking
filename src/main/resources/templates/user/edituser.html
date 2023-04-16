@@ -26,7 +26,7 @@
           <h1>Edit user</h1>
           <form
             th:object="${user}"
-            th:action="@{/saveuser}"
+            th:action="@{/saveediteduser}"
             action="#"
             method="post"
           >
@@ -39,6 +39,11 @@
                 id="username"
                 th:field="*{username}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('username')}"
+                th:errors="*{username}"
+              ></div>
               <br />
               <label for="email">Email</label>
               <input
@@ -47,6 +52,11 @@
                 id="email"
                 th:field="*{email}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('email')}"
+                th:errors="*{email}"
+              ></div>
               <br />
               <label for="password">Password</label>
               <input
@@ -55,6 +65,11 @@
                 id="password"
                 th:field="*{passwordHash}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('passwordHash')}"
+                th:errors="*{passwordHash}"
+              ></div>
               <br />
               <label for="role">Role</label>
               <input
@@ -63,6 +78,11 @@
                 id="role"
                 th:field="*{role}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('role')}"
+                th:errors="*{role}"
+              ></div>
               <br />
               <input class="btn btn-primary" type="submit" value="Save" />
               <a href="/userlist" class="btn btn-danger">Back</a>

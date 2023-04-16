@@ -6,12 +6,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import hh.backend.carbooking.domain.User;
 import hh.backend.carbooking.domain.UserRepository;
+import jakarta.validation.Valid;
 
 @Controller
 public class UserController {
@@ -53,11 +55,30 @@ public class UserController {
     // Save user
     @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/saveuser")
-    public String saveUser(User user) {
-        String pswrd = user.getPasswordHash();
-        user.setPasswordHash(passwordEncoder.encode(pswrd));
-        uRepository.save(user);
-        return "redirect:/userlist"; // userlist.html
+    public String saveUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/adduser";
+        } else {
+            String pswrd = user.getPasswordHash();
+            user.setPasswordHash(passwordEncoder.encode(pswrd));
+            uRepository.save(user);
+            return "redirect:/userlist"; // userlist.html
+        }
+    }
+
+    // Save edited user
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @PostMapping("/saveediteduser")
+    public String saveEditedUser(@Valid User user, BindingResult result, Authentication authentication) {
+        User currentuser = uRepository.findByUsername(authentication.getName());
+        if (result.hasErrors()) {
+            return "redirect:/edituser/" + currentuser.getId();
+        } else {
+            String pswrd = user.getPasswordHash();
+            user.setPasswordHash(passwordEncoder.encode(pswrd));
+            uRepository.save(user);
+            return "redirect:/userlist"; // userlist.html
+        }
     }
 
     // New user registration
@@ -69,12 +90,16 @@ public class UserController {
 
     // Register new user
     @PostMapping("/registeruser")
-    public String registerUser(User user) {
-        String pswrd = user.getPasswordHash();
-        user.setPasswordHash(passwordEncoder.encode(pswrd));
-        user.setRole("USER");
-        uRepository.save(user);
-        return "redirect:/carlist";
+    public String registerUser(@Valid User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/register";
+        } else {
+            String pswrd = user.getPasswordHash();
+            user.setPasswordHash(passwordEncoder.encode(pswrd));
+            user.setRole("USER");
+            uRepository.save(user);
+            return "redirect:/carlist";
+        }
     }
 
     // Edit one user by id

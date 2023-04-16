@@ -27,7 +27,7 @@
           <h1>Edit car</h1>
           <form
             th:object="${car}"
-            th:action="@{/savecar}"
+            th:action="@{/saveeditedcar}"
             action="#"
             method="post"
           >
@@ -40,6 +40,11 @@
                 id="brand"
                 th:field="*{brand}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('brand')}"
+                th:errors="*{brand}"
+              ></div>
               <br />
               <label for="model">Model</label>
               <input
@@ -48,6 +53,11 @@
                 id="model"
                 th:field="*{model}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('model')}"
+                th:errors="*{model}"
+              ></div>
               <br />
               <label for="year">Year</label>
               <input
@@ -56,6 +66,11 @@
                 id="year"
                 th:field="*{year}"
               />
+              <div
+                class="alert alert-warning"
+                th:if="${#fields.hasErrors('year')}"
+                th:errors="*{year}"
+              ></div>
               <br />
               <label for="price">Price</label>
               <input
