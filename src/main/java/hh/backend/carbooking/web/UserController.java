@@ -23,17 +23,22 @@ public class UserController {
     UserRepository uRepository;
 
     // User list
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/userlist")
-    public String userList(Model model) {
+    public String userList(Model model, Authentication authentication) {
         model.addAttribute("users", uRepository.findAll());
+        model.addAttribute("currentuser", uRepository.findByUsername(authentication.getName()));
         return "user/userlist";
     }
 
     // User page
+
+    // Implement @PreAuthorize to restrict user profile access to only current user
+    // own profile. Maybe current user == userprofile user id?
+    @PreAuthorize("principal.username == authentication.name")
     @GetMapping("/userprofile/{id}")
     public String userProfile(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", uRepository.findById(id));
+        model.addAttribute("user", uRepository.findById(id).get());
         return "user/user";
     }
 
@@ -86,13 +91,5 @@ public class UserController {
     public String deleteUser(@PathVariable("id") Long id) {
         uRepository.deleteById(id);
         return "redirect:/userlist"; // userlist.html
-    }
-
-    // User data to layout
-    @PreAuthorize("hasAuthority('ADMIN')")
-    @GetMapping("/layout")
-    public String navBar(Authentication authentication, Model model) {
-        model.addAttribute("user", uRepository.findByUsername(authentication.getName()));
-        return "layout";
     }
 }

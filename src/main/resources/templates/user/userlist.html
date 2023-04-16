@@ -21,13 +21,26 @@
   <body>
     <section layout:fragment="content">
       <div class="container text-center">
-        <h1>Users</h1>
-        <h3 sec:authentication="name">Bob</h3>
-        <table class="table table-bordered table-hover">
-          <tr class="table-secondary">
+        <br />
+
+        <a
+          th:href="@{/userprofile/{id}(id=${currentuser.id})}"
+          class="btn btn-primary"
+        >
+          <span
+            style="text-transform: capitalize"
+            th:text="${currentuser.username}"
+          ></span>
+          Profile</a
+        >
+
+        <table sec:authorize="hasAuthority('ADMIN')" class="table table-border">
+          <tr class="table">
             <th>Username</th>
             <th>Email</th>
             <th>Role</th>
+            <th></th>
+            <th></th>
           </tr>
           <tr th:each="user : ${users}">
             <td>
@@ -37,14 +50,14 @@
             </td>
             <td th:text="${user.email}"></td>
             <td th:text="${user.role}"></td>
-            <td sec:authorize="hasAuthority('ADMIN')">
+            <td>
               <a
                 th:href="@{/edituser/{id}(id=${user.id})}"
                 class="btn btn-primary"
                 >Edit</a
               >
             </td>
-            <td sec:authorize="hasAuthority('ADMIN')">
+            <td>
               <a
                 th:href="@{/deleteuser/{id}(id=${user.id})}"
                 class="btn btn-danger"
@@ -54,17 +67,12 @@
             </td>
           </tr>
         </table>
+        <br />
         <a
           sec:authorize="hasAuthority('ADMIN')"
           href="/adduser"
           class="btn btn-success"
           >Add user</a
-        >
-        <a
-          sec:authorize="hasAuthority('ADMIN')"
-          href="/carlist"
-          class="btn btn-primary"
-          >Cars</a
         >
       </div>
     </section>

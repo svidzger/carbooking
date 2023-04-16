@@ -22,20 +22,30 @@
   <body>
     <section layout:fragment="content">
       <div class="container text-center">
-        <h1 th:text="${currusername}"></h1>
-        <p th:text="${role}"></p>
-        <a
-          sec:authorize="hasAuthority('ADMIN')"
-          href="/adduser"
-          class="btn btn-success"
-          >Add user</a
-        >
-        <a
-          sec:authorize="hasAuthority('ADMIN')"
-          href="/carlist"
-          class="btn btn-primary"
-          >Cars</a
-        >
+        <h4>
+          Dear
+          <span
+            style="text-transform: capitalize"
+            th:text="${user.username}"
+          ></span
+          >, you can view your bookings here.
+        </h4>
+        <p th:text="'Username: ' + ${user.username}"></p>
+        <p th:text="'Email: ' + ${user.email}"></p>
+        <table class="table table-borderless">
+          <tr>
+            <th>Car</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+          <tr th:each="booking : ${user.bookings}">
+            <td
+              th:text="${booking.car.brand} + ' ' + ${booking.car.model}"
+            ></td>
+            <td th:text="${booking.startDate}"></td>
+            <td th:text="${booking.endDate}"></td>
+          </tr>
+        </table>
       </div>
     </section>
   </body>
