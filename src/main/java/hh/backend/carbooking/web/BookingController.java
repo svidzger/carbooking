@@ -57,7 +57,10 @@ public class BookingController {
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/deletebooking/{id}")
     public String deleteBooking(@PathVariable("id") Long bookingId) {
-        bRepository.deleteById(bookingId);
+        Booking booking = bRepository.findById(bookingId).get();
+        booking.setCar(null);
+        booking.setUser(null);
+        bRepository.delete(booking);
         return "redirect:/userlist"; // userlist.html
     }
 }

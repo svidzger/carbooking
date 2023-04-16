@@ -12,6 +12,10 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity(name = "users")
 public class User {
@@ -20,16 +24,25 @@ public class User {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Valid
+    @Size(min = 4, max = 12, message = "Username must be between 4 and 12 characters")
+    @NotNull(message = "User cannot be null")
+    @Column(name = "username", unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Valid
+    @NotNull(message = "Password cannot be null")
+    @Column(name = "password")
     private String passwordHash;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Valid
+    @Email(message = "Email should be valid")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "role", nullable = false)
+    @Valid
+    @NotNull(message = "Role cannot be null")
+    @Column(name = "role")
     private String role;
 
     @JsonManagedReference

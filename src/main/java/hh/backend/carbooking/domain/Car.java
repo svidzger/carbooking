@@ -12,6 +12,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Car {
@@ -19,9 +22,22 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long carId;
-    private String brand, model;
+
+    @Valid
+    @NotEmpty(message = "Brand cannot be null")
+    @Column(name = "brand")
+    private String brand;
+
+    @Valid
+    @NotEmpty(message = "Model cannot be null")
+    @Column(name = "model")
+    private String model;
+
+    @Valid
+    @NotNull(message = "Year cannot be null")
     @Column(name = "production_year")
     private Integer year;
+
     private Double price;
 
     @JsonManagedReference

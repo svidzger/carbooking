@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Booking {
@@ -18,10 +20,17 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookingId;
+
     @Basic
+    @Valid
+    @NotNull(message = "Date cannot be null")
     private java.sql.Date startDate;
+
     @Basic
+    @Valid
+    @NotNull(message = "Date cannot be null")
     private java.sql.Date endDate;
+
     private Double bookingPrice;
 
     @JsonBackReference
