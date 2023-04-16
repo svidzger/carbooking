@@ -34,8 +34,6 @@ public class Car {
     @Column(name = "production_year")
     private Integer year;
 
-    private Double price;
-
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "car", fetch = FetchType.EAGER)
     private List<Booking> bookings;
@@ -45,11 +43,10 @@ public class Car {
     }
 
     public Car(@NotEmpty(message = "Brand is required") String brand,
-            @NotEmpty(message = "Model is required") String model, @Min(1) Integer year, Double price) {
+            @NotEmpty(message = "Model is required") String model, @Min(1) Integer year) {
         this.brand = brand;
         this.model = model;
         this.year = year;
-        this.price = price;
     }
 
     public Long getCarId() {
@@ -84,14 +81,6 @@ public class Car {
         this.year = year;
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public List<Booking> getBookings() {
         return bookings;
     }
@@ -99,11 +88,4 @@ public class Car {
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
-
-    @Override
-    public String toString() {
-        return "Car [carId=" + carId + ", brand=" + brand + ", model=" + model + ", year=" + year + ", price=" + price
-                + ", bookings=" + bookings.size() + "]";
-    }
-
 }

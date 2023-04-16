@@ -29,11 +29,11 @@ public class CarbookingApplication {
 			log.info("saving test cars");
 
 			// Test cars for CarController and car realted thymeleaf html files
-			cRepository.save(new Car("Toyota", "Camry", 1993, 24.99));
-			cRepository.save(new Car("Subaru", "Impreza", 1994, 44.99));
-			cRepository.save(new Car("Toyota", "Corolla", 1993, 14.99));
-			cRepository.save(new Car("Audi", "A4", 1996, 24.99));
-			cRepository.save(new Car("Tesla", "Model S", 2012, 59.99));
+			cRepository.save(new Car("Toyota", "Camry", 1993));
+			cRepository.save(new Car("Subaru", "Impreza", 1994));
+			cRepository.save(new Car("Toyota", "Corolla", 1993));
+			cRepository.save(new Car("Audi", "A4", 1996));
+			cRepository.save(new Car("Tesla", "Model S", 2012));
 
 			log.info("fetch all cars");
 			for (Car car : cRepository.findAll()) {

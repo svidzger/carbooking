@@ -44,6 +44,8 @@ public class WebSecurityConfig {
                 .and()
                 .csrf().ignoringRequestMatchers(toH2Console())
                 .and()
+                .httpBasic()
+                .and()
                 .headers().frameOptions().disable()
                 .and()
                 .formLogin()

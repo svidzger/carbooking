@@ -30,13 +30,11 @@
             <th style="width: 1%"></th>
             <th style="width: 1%"></th>
             <th style="width: 1%"></th>
-            <!-- <th>Price</th> -->
           </tr>
           <tr th:each="car : ${cars}">
             <td th:text="${car.brand}"></td>
             <td th:text="${car.model}"></td>
             <td th:text="${car.year}"></td>
-            <!-- <td th:text="${car.price}"></td> -->
             <td>
               <a
                 th:href="@{/addbooking/{id}(id=${car.carId})}"

@@ -22,13 +22,11 @@ public class Booking {
 
     @Basic
     @NotNull(message = "Date is required")
-    private java.sql.Date startDate;
+    private Date startDate;
 
     @Basic
     @NotNull(message = "Date is required")
-    private java.sql.Date endDate;
-
-    private Double bookingPrice;
+    private Date endDate;
 
     @JsonBackReference
     @ManyToOne
@@ -44,10 +42,9 @@ public class Booking {
 
     }
 
-    public Booking(Date startDate, Date endDate, Double bookingPrice, Car car, User user) {
+    public Booking(Date startDate, Date endDate, Car car, User user) {
         this.startDate = startDate;
         this.endDate = endDate;
-        this.bookingPrice = bookingPrice;
         this.car = car;
         this.user = user;
     }
@@ -76,14 +73,6 @@ public class Booking {
         this.endDate = endDate;
     }
 
-    public Double getBookingPrice() {
-        return bookingPrice;
-    }
-
-    public void setBookingPrice(Double bookingPrice) {
-        this.bookingPrice = bookingPrice;
-    }
-
     public Car getCar() {
         return car;
     }
@@ -99,11 +88,4 @@ public class Booking {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @Override
-    public String toString() {
-        return "Booking [bookingId=" + bookingId + ", startDate=" + startDate + ", endDate=" + endDate
-                + ", bookingPrice=" + bookingPrice + ", car=" + car + "]";
-    }
-
 }

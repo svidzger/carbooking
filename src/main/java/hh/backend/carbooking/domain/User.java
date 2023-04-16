@@ -37,7 +37,6 @@ public class User {
     @Column(name = "email", unique = true)
     private String email;
 
-    @NotEmpty(message = "Role is required")
     @Column(name = "role")
     private String role;
 
@@ -54,7 +53,7 @@ public class User {
             @Size(min = 4, max = 12, message = "Username must be between 4 and 12 characters") @NotEmpty(message = "Username is required") String username,
             @NotEmpty(message = "Password is required") String passwordHash,
             @Email(message = "Email should be valid") @NotEmpty(message = "Email is required") String email,
-            @NotEmpty(message = "Role is required") String role) {
+            String role) {
         this.username = username;
         this.passwordHash = passwordHash;
         this.email = email;

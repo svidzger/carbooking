@@ -34,9 +34,6 @@ public class UserController {
     }
 
     // User page
-
-    // Implement @PreAuthorize to restrict user profile access to only current user
-    // own profile. Maybe current user == userprofile user id?
     @PreAuthorize("principal.username == authentication.name")
     @GetMapping("/userprofile/{id}")
     public String userProfile(@PathVariable("id") Long id, Model model) {

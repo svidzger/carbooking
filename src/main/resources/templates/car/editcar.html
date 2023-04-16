@@ -21,7 +21,6 @@
   </head>
   <body>
     <section layout:fragment="content">
-      <
       <div class="row">
         <div class="mx-auto col-10 col-md-8 col-lg-6">
           <h1>Edit car</h1>
@@ -71,14 +70,6 @@
                 th:if="${#fields.hasErrors('year')}"
                 th:errors="*{year}"
               ></div>
-              <br />
-              <label for="price">Price</label>
-              <input
-                class="form-control"
-                type="text"
-                id="price"
-                th:field="*{price}"
-              />
               <br />
               <input class="btn btn-primary" type="submit" value="Save" />
               <a href="/carlist" class="btn btn-danger">Back</a>
