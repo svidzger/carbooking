@@ -38,6 +38,7 @@ public class BookingController {
     }
 
     // Add new booking
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/addbooking/{id}")
     public String addBooking(@PathVariable("id") Long carId, Model model) {
         Booking booking = new Booking();
@@ -49,6 +50,7 @@ public class BookingController {
     }
 
     // Save new booking
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/savebooking")
     public String saveBooking(@Valid Booking booking, BindingResult result) {
         if (result.hasErrors()) {

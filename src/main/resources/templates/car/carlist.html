@@ -59,13 +59,6 @@
             </td>
           </tr>
         </table>
-        <!-- <div th:object="${user}">
-          <a
-            th:href="@{/userprofile/{id}(id=${user.id})}"
-            class="btn btn-primary"
-            >Profile</a
-          >
-        </div> -->
         <a
           sec:authorize="hasAuthority('ADMIN')"
           href="/addcar"

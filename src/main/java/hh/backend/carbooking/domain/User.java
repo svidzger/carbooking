@@ -41,7 +41,7 @@ public class User {
     private String role;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user", fetch = FetchType.EAGER)
     private List<Booking> bookings;
 
     // Constructors
@@ -54,6 +54,7 @@ public class User {
             @NotEmpty(message = "Password is required") String passwordHash,
             @Email(message = "Email should be valid") @NotEmpty(message = "Email is required") String email,
             String role) {
+        super();
         this.username = username;
         this.passwordHash = passwordHash;
         this.email = email;

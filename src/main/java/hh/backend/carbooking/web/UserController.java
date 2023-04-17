@@ -95,7 +95,7 @@ public class UserController {
             user.setPasswordHash(passwordEncoder.encode(pswrd));
             user.setRole("USER");
             uRepository.save(user);
-            return "redirect:/carlist";
+            return "redirect:/carlist"; // carlist.html
         }
     }
 

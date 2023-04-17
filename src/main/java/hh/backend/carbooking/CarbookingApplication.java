@@ -40,15 +40,19 @@ public class CarbookingApplication {
 				log.info(car.toString());
 			}
 
+			log.info("saving test user");
+
 			// Create test users
-			User user1 = new User("user", "$2a$10$9GVY78j6TXCbePZtjLPVQOopBLQw1z4Isr4RR01IDbnxDJWknZV4C","user@email.com", "USER");
-			User user2 = new User("admin", "$2a$10$zRHb1X18PiVGVne6ZKaD5Oqu3n7AWka43bMvYXAUom84jrayRE0dO","admin@email.com", "ADMIN");
+			User user1 = new User("user", "$2a$10$9GVY78j6TXCbePZtjLPVQOopBLQw1z4Isr4RR01IDbnxDJWknZV4C",
+					"user@email.com", "USER");
+			User user2 = new User("admin", "$2a$10$zRHb1X18PiVGVne6ZKaD5Oqu3n7AWka43bMvYXAUom84jrayRE0dO",
+					"admin@email.com", "ADMIN");
 
 			uRepository.save(user1);
 			uRepository.save(user2);
 
-			log.info("test users added");
-			for (User user: uRepository.findAll()) {
+			log.info("fetch all users");
+			for (User user : uRepository.findAll()) {
 				log.info(user.toString());
 			}
 

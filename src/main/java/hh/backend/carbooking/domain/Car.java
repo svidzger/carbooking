@@ -35,20 +35,23 @@ public class Car {
     private Integer year;
 
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "car", fetch = FetchType.EAGER)
     private List<Booking> bookings;
 
+    // Constructors
     public Car() {
 
     }
 
     public Car(@NotEmpty(message = "Brand is required") String brand,
             @NotEmpty(message = "Model is required") String model, @Min(1) Integer year) {
+        super();
         this.brand = brand;
         this.model = model;
         this.year = year;
     }
 
+    // Getters and Setters
     public Long getCarId() {
         return carId;
     }

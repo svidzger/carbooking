@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ public class UserRestController {
     UserRepository uRepository;
 
     // All uses
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users")
     @ResponseBody
     List<User> userListRest() {
@@ -30,6 +32,7 @@ public class UserRestController {
     }
 
     // User by id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/users/{id}")
     @ResponseBody
     Optional<User> findUserByIdRest(@PathVariable("id") Long id) {
@@ -37,12 +40,14 @@ public class UserRestController {
     }
 
     // New user
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
         return uRepository.save(newUser);
     }
 
     // Edit user
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/users/{id}")
     User replaceUser(@RequestBody User newUser, @PathVariable("id") Long id) {
         return uRepository.findById(id)
@@ -58,6 +63,7 @@ public class UserRestController {
     }
 
     // Delete user
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/users/{id}")
     void deleteUser(@PathVariable("id") Long id) {
         uRepository.deleteById(id);

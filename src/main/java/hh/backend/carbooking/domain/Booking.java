@@ -38,17 +38,22 @@ public class Booking {
     @JoinColumn(name = "userId")
     private User user;
 
+
+    // Constructors
     public Booking() {
 
     }
 
     public Booking(Date startDate, Date endDate, Car car, User user) {
+        super();
         this.startDate = startDate;
         this.endDate = endDate;
         this.car = car;
         this.user = user;
     }
 
+
+    // Getters and Setters
     public Long getBookingId() {
         return bookingId;
     }

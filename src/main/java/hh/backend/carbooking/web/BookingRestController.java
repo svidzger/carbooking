@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,24 +23,28 @@ public class BookingRestController {
     BookingRepository bRepository;
 
     // All booking
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/bookings")
     List<Booking> carListRest() {
         return (List<Booking>) bRepository.findAll();
     }
 
     // One booking by id
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("bookings/{id}")
     Optional<Booking> findBookingByIdRest(@PathVariable("id") Long bookingId) {
         return bRepository.findById(bookingId);
     }
 
     // New booking
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/bookings")
     Booking newBooking(@RequestBody Booking newBooking) {
         return bRepository.save(newBooking);
     }
 
     // Edit booking
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PutMapping("/bookings/{id}")
     Booking replaceBooking(@RequestBody Booking newBooking, @PathVariable("id") Long bookingId) {
         return bRepository.findById(bookingId)
@@ -55,6 +60,7 @@ public class BookingRestController {
     }
 
     // Delete booking
+    @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/bookings/{id}")
     void deleteBooking(@PathVariable("id") Long bookingId) {
         bRepository.deleteById(bookingId);
